@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/jobs")
 public class JobController {
     private final JobService jobService;
 
@@ -14,35 +15,35 @@ public class JobController {
         this.jobService = jobService;
     }
 
-    @GetMapping("/jobs")
+    @GetMapping
     public ResponseEntity<List<Job>> findAllJobs() {
         return ResponseEntity.ok(jobService.findAll());
     }
 
-    @PostMapping("/jobs")
+    @PostMapping
     public ResponseEntity<String> creteJob(@RequestBody Job job) {
         jobService.createJob(job);
         return new ResponseEntity<>("New Job Created!", HttpStatus.OK);
     }
 
-    @GetMapping("jobs/{id}")
-    public ResponseEntity<Job> getJobById(@PathVariable long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getJobById(@PathVariable long id) {
         var job = jobService.getJobById(id);
         if (job != null) return new ResponseEntity<>(job, HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No job found with requested id");
     }
 
-    @DeleteMapping("jobs/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteJobById(@PathVariable long id) {
         boolean isDeleted = jobService.deleteJobById(id);
         if (isDeleted) return ResponseEntity.ok("Job deleted!");
-        else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        else return ResponseEntity.status(HttpStatus.NOT_FOUND).body("requested job not found!");
     }
 
-    @PutMapping("jobs/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<String> updateJob(@PathVariable long id, @RequestBody Job job) {
         boolean isUpdated = jobService.updateJobById(id, job);
         if (isUpdated) return ResponseEntity.ok("Job Updated!");
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("requested job not found!");
     }
 }
