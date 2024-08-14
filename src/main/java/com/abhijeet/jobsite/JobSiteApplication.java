@@ -1,4 +1,4 @@
-package com.abhijeet.job_site;
+package com.abhijeet.jobsite;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class JobSiteApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(JobSiteApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(JobSiteApplication.class, args);
+    }
 
 }

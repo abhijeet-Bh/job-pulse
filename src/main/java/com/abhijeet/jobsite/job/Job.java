@@ -1,4 +1,4 @@
-package com.abhijeet.job_site.job;
+package com.abhijeet.jobsite.job;
 
 public class Job {
     private long id;
