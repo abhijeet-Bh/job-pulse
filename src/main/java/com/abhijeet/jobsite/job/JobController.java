@@ -17,7 +17,7 @@ public class JobController {
 
     @GetMapping
     public ResponseEntity<List<Job>> findAllJobs() {
-        return ResponseEntity.ok(jobService.findAll());
+        return new ResponseEntity<>(jobService.findAll(), HttpStatus.OK);
     }
 
     @PostMapping
