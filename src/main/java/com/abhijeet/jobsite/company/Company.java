@@ -2,6 +2,7 @@ package com.abhijeet.jobsite.company;
 
 
 import com.abhijeet.jobsite.job.Job;
+import com.abhijeet.jobsite.review.Review;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -19,7 +20,18 @@ public class Company {
     @OneToMany(mappedBy = "company") //This will create relation with `company` column that exists in `Job`.
     private List<Job> jobs;
 
+    @OneToMany(mappedBy = "company")
+    private List<Review> reviews;
+
     public Company() {
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
     public long getId() {
