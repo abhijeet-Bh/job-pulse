@@ -1,5 +1,7 @@
 package com.abhijeet.jobsite.configs;
 
+import org.springframework.http.HttpStatus;
+
 public class ApiResponse<T> {
     private boolean success;
     private int statusCode;
@@ -24,8 +26,8 @@ public class ApiResponse<T> {
     }
 
     // Static factory method for success response
-    public static <T> ApiResponse<T> failure(int statusCode) {
-        return new ApiResponse<>(false, statusCode, null, "Something went wrong!");
+    public static <T> ApiResponse<T> failure(String message) {
+        return new ApiResponse<>(false, HttpStatus.BAD_GATEWAY.value(), null, message);
     }
 
     // Static factory method for success response
