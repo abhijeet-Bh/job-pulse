@@ -3,11 +3,13 @@ package com.abhijeet.jobsite.job;
 import com.abhijeet.jobsite.company.Company;
 import jakarta.persistence.*;
 
+import java.util.UUID;
+
 @Entity
 public class Job {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String title;
     private String description;
     private String minSalary;
@@ -20,7 +22,7 @@ public class Job {
     public Job() {
     }
 
-    public Job(long id, String title, String description, String minSalary, String maxSalary, String location) {
+    public Job(UUID id, String title, String description, String minSalary, String maxSalary, String location) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -37,11 +39,11 @@ public class Job {
         this.company = company;
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

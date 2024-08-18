@@ -27,8 +27,9 @@ public class SecurityConfigs {
 //                .csrf(csrf -> csrf.disable())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/open/**").permitAll()
-                        .anyRequest().authenticated()
+//                                .anyRequest().authenticated()
+                                .requestMatchers("/admin/**").authenticated()
+                                .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(sessions -> sessions.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

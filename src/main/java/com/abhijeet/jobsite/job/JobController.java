@@ -1,5 +1,7 @@
 package com.abhijeet.jobsite.job;
 
+import com.abhijeet.jobsite.configs.ApiResponse;
+import com.abhijeet.jobsite.configs.Authentication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +18,23 @@ public class JobController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Job>> findAllJobs() {
-        return new ResponseEntity<>(jobService.findAll(), HttpStatus.OK);
+    public ResponseEntity<ApiResponse<List<Job>>> findAllJobs() {
+
+        return new ResponseEntity<>(ApiResponse.success(jobService.findAll()), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<String> creteJob(@RequestBody Job job) {
-        jobService.createJob(job);
-        return new ResponseEntity<>("New Job Created!", HttpStatus.OK);
+    public ResponseEntity<ApiResponse<Job>> creteJob(@RequestBody Job job) {
+
+        if (Authentication.isAdmin()) {
+            jobService.createJob(job);
+            return new ResponseEntity<>(ApiResponse.success(job, HttpStatus.CREATED.value()),
+                    HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(ApiResponse.failure(HttpStatus.UNAUTHORIZED.value(),
+                    "Unauthorised Access, Please login as Admin!"),
+                    HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @GetMapping("/{id}")

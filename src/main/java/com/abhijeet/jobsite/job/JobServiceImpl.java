@@ -9,7 +9,6 @@ import java.util.Optional;
 public class JobServiceImpl implements JobService {
     //    private List<Job> jobs = new ArrayList<>();
     JobRepository jobRepository;
-    private long jobId = 1L;
 
     public JobServiceImpl(JobRepository jobRepository) {
         this.jobRepository = jobRepository;
@@ -22,7 +21,6 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public Job createJob(Job job) {
-        job.setId(jobId++);
         jobRepository.save(job);
         return job;
     }
