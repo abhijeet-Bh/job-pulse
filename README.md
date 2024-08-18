@@ -1,76 +1,65 @@
-# RESTful API Backend Project (Job-site)
+# RESTful API Backend Project (JobPulse)
+
+![Spring Boot Badge](https://img.shields.io/badge/Spring%20Boot-6DB33F?logo=springboot&logoColor=fff&style=flat-square)
+![Spring Security Badge](https://img.shields.io/badge/Spring%20Security-6DB33F?logo=springsecurity&logoColor=fff&style=flat-square)
+![Spring Badge](https://img.shields.io/badge/Spring-6DB33F?logo=spring&logoColor=fff&style=flat-square)
+![OpenJDK Badge](https://img.shields.io/badge/OpenJDK-000?logo=openjdk&logoColor=fff&style=flat-square)
+![PostgreSQL Badge](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=fff&style=flat-square)
+![Docker Badge](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff&style=flat-square)
+---
 
 ## Overview
 
-This project is a backend service built using Spring Boot and Java. It exposes RESTful API endpoints for managing
-resources in a PostgreSQL database. The application is containerized using Docker, enabling easy deployment and scaling.
+This project is a backend service built using `Spring Boot` and `Java`. It exposes RESTful API endpoints for managing
+resources in a `PostgreSQL database`. The application is containerized using `Docker`, enabling easy deployment and
+scaling.
 
-## Table of Contents
+For Security of endpoints and app, This project implements `spring-security`. All endpoints (if required) are secured to
+be accessed by only authentic users.
 
-- [Tech Stack](#tech-stack)
-- [Features](#features)
-- [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
-    - [Running the Application](#running-the-application)
-    - [Running Tests](#running-tests)
-- [API Documentation](#api-documentation)
-    - [Endpoints](#endpoints)
-- [Database](#database)
-    - [Schema](#schema)
-- [Docker Setup](#docker-setup)
-- [Contributing](#contributing)
-- [License](#license)
+### Project Dependencies
 
-## Tech Stack
+- **Java**: `opne jdk: v22.0`.
+- **Spring Boot**: `v3.3.3`.
+- **PostgreSQL**: `v16.0`.
+- **Docker**: with `docker-compose v3.0`.
+- **Maven**: `v4.0.0`.
 
-- **Java**: Programming language used for backend logic.
-- **Spring Boot**: Framework for building the RESTful API.
-- **PostgreSQL**: Relational database for data storage.
-- **Docker**: Containerization platform to run the application and database.
-
-## Features
+### Features
 
 - RESTful API endpoints for CRUD operations.
 - User authentication and authorization.
 - Integration with PostgreSQL for persistent storage.
 - Dockerized application for easy deployment.
 
+---
+
 ## Getting Started
-
-### Prerequisites
-
-Ensure you have the following installed:
-
-- **Java 17 or higher**
-- **Maven 3.6 or higher**
-- **Docker**
-- **PostgreSQL (for local development without Docker)**
 
 ### Installation
 
 1. **Clone the repository:**
 
-   ```bash
-   git clone https://github.com/your-username/your-repo-name.git
-   cd your-repo-name
+   ```shell
+   git clone https://github.com/abhijeet-Bh/job-pulse.git
+   cd job-pulse
    ```
 
 2. **Build the application:**
 
-   ```bash
+   ```shell
    mvn clean install
    ```
 
 ### Running the Application
 
-You can run the application using Maven or Docker.
+You can run the application using `Maven` or `Docker`.
 
 #### Running with Maven:
 
 1. **Run the Spring Boot application:**
 
-   ```bash
+   ```shell
    mvn spring-boot:run
    ```
 
@@ -90,13 +79,7 @@ You can run the application using Maven or Docker.
 
    This command will start the Spring Boot application and PostgreSQL database in Docker containers.
 
-### Running Tests
-
-Run the tests using Maven:
-
-```bash
-mvn test
-```
+---
 
 ## API Documentation
 
@@ -104,49 +87,61 @@ mvn test
 
 Below are some example endpoints. Replace these with your actual API endpoints.
 
-- **GET /api/v1/resources**: Retrieve all resources.
-- **GET /api/v1/resources/{id}**: Retrieve a single resource by ID.
-- **POST /api/v1/resources**: Create a new resource.
-- **PUT /api/v1/resources/{id}**: Update an existing resource by ID.
-- **DELETE /api/v1/resources/{id}**: Delete a resource by ID.
+- **GET** `/job`: Retrieve all jobs.
+- **GET** `/jobs/{jobId}`: Retrieve a single job by ID.
+- **POST** `/jobs`: Create a new job.
+- **PUT** `/jobs/{id}`: Update an existing job by ID.
+- **DELETE** `/jobs/{id}`: Delete a job by ID.
 
 ### Example Request/Response
 
-- **Request (POST /api/v1/resources):**
-
-  ```json
-  {
-    "name": "Sample Resource",
-    "description": "This is a sample resource"
-  }
-  ```
-
+- **Request - `GET` `http://localhost:8080/job`:**
 - **Response:**
 
   ```json
   {
-    "id": 1,
-    "name": "Sample Resource",
-    "description": "This is a sample resource",
-    "createdAt": "2024-08-15T12:34:56Z",
-    "updatedAt": "2024-08-15T12:34:56Z"
-  }
+    "success": true,
+    "statusCode": 200,
+    "data": [
+        {
+            "id": "95f25de1-a4a3-4b46-aecc-becc95f2456f",
+            "title": "Software Engineer",
+            "description": "Software Engineering Job, proficient in JAVA",
+            "minSalary": "18 LPA",
+            "maxSalary": "20 LPA",
+            "location": "Hydrabad",
+            "company": {
+                "id": 1,
+                "name": "Google Inc.",
+                "description": "American Software Company.",
+                "reviews": []
+            }
+        }
+    ],
+    "message": null
+    }
   ```
+
+---
 
 ## Database
 
 ### Schema
 
-The database schema is managed by Spring Data JPA. Here’s an overview of the primary tables:
+The database schema is managed by `Spring Data JPA`. Here’s an overview of the `jobs` tables:
 
 - **Resources Table:**
     - `id` (Primary Key)
-    - `name`
+    - `title`
     - `description`
-    - `created_at`
-    - `updated_at`
+    - `minSalary`
+    - `maxSalary`
+    - `location`
+    - `company`
 
 Ensure the database configuration matches your `application.properties` or `application.yml` settings.
+
+---
 
 ## Docker Setup
 

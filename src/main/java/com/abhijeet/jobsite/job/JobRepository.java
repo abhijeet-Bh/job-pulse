@@ -2,6 +2,8 @@ package com.abhijeet.jobsite.job;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface JobRepository extends JpaRepository<Job, Long> {
+import java.util.UUID;
+
+public interface JobRepository extends JpaRepository<Job, UUID> {
 
 }

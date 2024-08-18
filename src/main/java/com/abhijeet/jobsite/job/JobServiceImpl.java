@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class JobServiceImpl implements JobService {
@@ -26,12 +27,12 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public Job getJobById(long id) {
+    public Job getJobById(UUID id) {
         return jobRepository.findById(id).orElse(null);
     }
 
     @Override
-    public boolean deleteJobById(long id) {
+    public boolean deleteJobById(UUID id) {
         try {
             jobRepository.deleteById(id);
             return true;
@@ -41,7 +42,7 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public boolean updateJobById(long id, Job job) {
+    public boolean updateJobById(UUID id, Job job) {
         Optional<Job> jobOptional = jobRepository.findById(id);
         if (jobOptional.isPresent()) {
             Job targetJob = jobOptional.get();

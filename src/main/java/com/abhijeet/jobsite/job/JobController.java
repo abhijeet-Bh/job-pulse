@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/jobs")
@@ -38,21 +39,21 @@ public class JobController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getJobById(@PathVariable long id) {
+    public ResponseEntity<?> getJobById(@PathVariable UUID id) {
         var job = jobService.getJobById(id);
         if (job != null) return new ResponseEntity<>(job, HttpStatus.OK);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No job found with requested id");
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteJobById(@PathVariable long id) {
+    public ResponseEntity<String> deleteJobById(@PathVariable UUID id) {
         boolean isDeleted = jobService.deleteJobById(id);
         if (isDeleted) return ResponseEntity.ok("Job deleted!");
         else return ResponseEntity.status(HttpStatus.NOT_FOUND).body("requested job not found!");
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateJob(@PathVariable long id, @RequestBody Job job) {
+    public ResponseEntity<String> updateJob(@PathVariable UUID id, @RequestBody Job job) {
         boolean isUpdated = jobService.updateJobById(id, job);
         if (isUpdated) return ResponseEntity.ok("Job Updated!");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("requested job not found!");
